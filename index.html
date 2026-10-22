@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edexcel Threshold Library — Starter Template</title>
+<style>
+:root{--navy:#14233b;--blue:#315fd3;--pale:#f3f6fc;--line:#e2e8f0;--muted:#64748b;--white:#fff}
+*{box-sizing:border-box}body{margin:0;background:#f7f9fc;color:#172033;font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+header{background:var(--navy);color:white;padding:28px 20px 32px} .wrap{max-width:1120px;margin:auto}
+.brand{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#c5d4ff;font-weight:700}
+h1{font-size:clamp(28px,4vw,42px);line-height:1.1;margin:12px 0}header p{max-width:720px;color:#d5deef;margin:0}
+main{max-width:1120px;margin:24px auto;padding:0 16px 50px}
+.notice{background:#fff8e6;border:1px solid #f1d99a;color:#785713;padding:12px 14px;border-radius:12px;margin-bottom:18px;font-size:13px}
+.panel{background:white;border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:18px;box-shadow:0 4px 18px #14233b08}
+.panel h2{font-size:18px;margin:0 0 14px}.filters{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}
+label{display:block;font-size:12px;font-weight:700;color:#526078;margin-bottom:6px}
+select,input[type="text"],input[type="number"]{width:100%;padding:11px 12px;border:1px solid #cfd8e6;border-radius:9px;background:white;color:#172033;font:inherit}
+select:focus,input:focus{outline:2px solid #b8c9ff;border-color:var(--blue)}
+.choice-row{display:flex;flex-wrap:wrap;gap:10px 18px;margin:8px 0 14px}.choice-row label{font-size:14px;color:#172033;font-weight:500;display:flex;align-items:center;gap:7px;margin:0}
+.component-box{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.chip{display:flex;align-items:center;gap:7px;border:1px solid var(--line);border-radius:999px;padding:7px 11px;font-size:13px;background:#fff}
+.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:15px}
+button,.file-button{border:0;border-radius:9px;padding:10px 14px;font:inherit;font-weight:700;cursor:pointer;background:var(--blue);color:white}
+button.secondary,.file-button.secondary{background:#edf2ff;color:#2348a8;border:1px solid #d6e0ff}
+button.ghost{background:white;color:#475569;border:1px solid var(--line)}
+input[type=file]{display:none}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px}
+.stat{background:white;border:1px solid var(--line);border-radius:13px;padding:15px}.stat small{color:var(--muted);display:block}.stat strong{font-size:25px;display:block;margin-top:4px}
+.table-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:12px}
+table{border-collapse:collapse;width:100%;min-width:850px;background:white}th,td{text-align:left;padding:12px 13px;border-bottom:1px solid var(--line);white-space:nowrap}
+th{background:#f3f6fc;color:#526078;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+tbody tr:last-child td{border-bottom:0}tbody tr:hover{background:#f8faff}.mark{font-weight:800;color:#2348a8}.muted{color:var(--muted);font-size:13px}
+.empty{text-align:center;padding:35px;color:var(--muted)}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:10px}
+@media(max-width:760px){.filters{grid-template-columns:repeat(2,minmax(0,1fr))}.stats{grid-template-columns:1fr 1fr}.panel{padding:15px}}
+@media(max-width:430px){.filters{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}header{padding:24px 16px}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <div class="brand">Independent revision resource · Starter template</div>
+  <h1>Edexcel Grade Threshold Library</h1>
+  <p>Explore grade thresholds by qualification, subject, component, year and exam session. Combine all years and sessions, or narrow the results to exactly what you need.</p>
+</div></header>
+<main>
+  <div class="notice"><strong>Starter data only:</strong> the example rows below are fictional and are included to demonstrate the filters. Replace them with verified data before publishing. This is an independent resource and is not affiliated with Pearson.</div>
+  <section class="panel">
+    <h2>Find thresholds</h2>
+    <div class="filters">
+      <div><label for="qualification">Qualification</label><select id="qualification"><option value="">All qualifications</option></select></div>
+      <div><label for="subject">Subject</label><select id="subject"><option value="">All subjects</option></select></div>
+      <div><label for="year">Year</label><select id="year"><option value="">All years</option></select></div>
+      <div><label for="session">Exam session</label><select id="session"><option value="">All sessions</option></select></div>
+      <div><label for="grade">Grade</label><select id="grade"><option value="">All grades</option></select></div>
+      <div><label for="sortBy">Rank by</label><select id="sortBy"><option value="marks">Threshold marks</option><option value="percent">Threshold percentage</option></select></div>
+      <div><label for="order">Sort order</label><select id="order"><option value="desc">Highest to lowest</option><option value="asc">Lowest to highest</option></select></div>
+      <div><label for="search">Search component / specification</label><input id="search" type="text" placeholder="e.g. 1H, 4MA1"></div>
+    </div>
+    <div style="margin-top:18px">
+      <label>Components</label>
+      <div class="choice-row">
+        <label><input type="radio" name="componentMode" value="all" checked> All components</label>
+        <label><input type="radio" name="componentMode" value="selected"> Selected components</label>
+      </div>
+      <div id="componentChoices" class="component-box"><span class="muted">Choose a subject to see available components, or use All components.</span></div>
+    </div>
+    <div class="actions">
+      <button id="reset">Reset filters</button>
+      <label class="file-button secondary" for="csvUpload">Import your CSV data</label><input id="csvUpload" type="file" accept=".csv,text/csv">
+      <button id="downloadCsv" class="secondary">Download CSV template</button>
+      <button id="exportResults" class="secondary">Export filtered results</button>
+    </div>
+    <p class="muted">For reliable comparisons, the table shows both raw marks and percentage. Different specifications or papers may not be directly comparable.</p>
+  </section>
+  <div class="stats">
+    <div class="stat"><small>Matching records</small><strong id="count">0</strong></div>
+    <div class="stat"><small>Components represented</small><strong id="componentCount">0</strong></div>
+    <div class="stat"><small>Years represented</small><strong id="yearCount">0</strong></div>
+  </div>
+  <section class="panel">
+    <div class="table-head"><div><h2 style="margin:0">Threshold results</h2><div id="summary" class="muted">All years · All sessions · All components</div></div><span class="muted">Ranked using your selected sort order</span></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>#</th><th>Qualification</th><th>Subject</th><th>Specification</th><th>Component</th><th>Year</th><th>Session</th><th>Grade</th><th>Threshold</th><th>Max mark</th><th>Threshold %</th><th>Source / notes</th></tr></thead>
+      <tbody id="results"></tbody>
+    </table></div>
+    <div id="empty" class="empty" hidden>No matching rows. Import your own data or change the filters.</div>
+  </section>
+  <section class="panel">
+    <h2>How to add your data</h2>
+    <ol>
+      <li>Tap <strong>Download CSV template</strong>.</li>
+      <li>Open the CSV in Google Sheets or Excel and replace the example rows with your verified thresholds.</li>
+      <li>Keep the column headings unchanged. Add one row for each grade threshold and component/session combination.</li>
+      <li>Save or download as <strong>CSV</strong>, then tap <strong>Import your CSV data</strong>.</li>
+      <li>Check the results, then publish the website using a website builder or hosting service.</li>
+    </ol>
+    <p class="muted">Recommended CSV columns: qualification, subject, specification, component, year, session, grade, threshold, max_mark, source. Use one row per grade per component. For a modular qualification, record unit/component boundaries according to that qualification's official rules.</p>
+  </section>
+</main>
+<footer>Independent starter template · Verify data against official published sources before sharing.</footer>
+<script>
+const demo = [
+{qualification:"International GCSE",subject:"Mathematics",specification:"4MA1",component:"1H",year:2025,session:"May/June",grade:"9",threshold:154,max_mark:200,source:"DEMO — replace"},
+{qualification:"International GCSE",subject:"Mathematics",specification:"4MA1",component:"2H",year:2025,session:"May/June",grade:"9",threshold:149,max_mark:200,source:"DEMO — replace"},
+{qualification:"International GCSE",subject:"Mathematics",specification:"4MA1",component:"1H",year:2024,session:"May/June",grade:"9",threshold:158,max_mark:200,source:"DEMO — replace"},
+{qualification:"International GCSE",subject:"Mathematics",specification:"4MA1",component:"2H",year:2024,session:"January",grade:"9",threshold:151,max_mark:200,source:"DEMO — replace"},
+{qualification:"International GCSE",subject:"Physics",specification:"4PH1",component:"1P",year:2025,session:"May/June",grade:"9",threshold:112,max_mark:180,source:"DEMO — replace"},
+{qualification:"International GCSE",subject:"Physics",specification:"4PH1",component:"2P",year:2025,session:"May/June",grade:"9",threshold:109,max_mark:180,source:"DEMO — replace"},
+{qualification:"International A Level",subject:"Mathematics",specification:"WMA11",component:"P1",year:2025,session:"January",grade:"A",threshold:62,max_mark:75,source:"DEMO — replace"},
+{qualification:"International A Level",subject:"Mathematics",specification:"WMA12",component:"P2",year:2025,session:"May/June",grade:"A",threshold:58,max_mark:75,source:"DEMO — replace"}
+];
+let data = [...demo], selectedComponents = new Set();
+const $ = id => document.getElementById(id);
+const fields = ["qualification","subject","year","session","grade"];
+function uniq(arr){return [...new Set(arr.filter(v=>v!==undefined&&v!==null&&String(v).trim()!=="").map(String))].sort((a,b)=>a.localeCompare(b,undefined,{numeric:true}));}
+function fillSelect(id, values, allLabel){
+ const el=$(id), prev=el.value; el.innerHTML="";
+ const opt=document.createElement("option"); opt.value=""; opt.textContent=allLabel; el.appendChild(opt);
+ values.forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v;el.appendChild(o)});
+ if(values.includes(prev))el.value=prev;
+}
+function refreshFilters(){
+ fillSelect("qualification",uniq(data.map(x=>x.qualification)),"All qualifications");
+ fillSelect("subject",uniq(data.filter(x=>!$("qualification").value||x.qualification===$("qualification").value).map(x=>x.subject)),"All subjects");
+ fillSelect("year",uniq(data.map(x=>x.year)),"All years");
+ fillSelect("session",uniq(data.map(x=>x.session)),"All sessions");
+ fillSelect("grade",uniq(data.map(x=>x.grade)),"All grades");
+ renderComponentChoices(); render();
+}
+function baseFiltered(){
+ return data.filter(r=>
+  (!$("qualification").value||String(r.qualification)===$("qualification").value)&&
+  (!$("subject").value||String(r.subject)===$("subject").value)&&
+  (!$("year").value||String(r.year)===$("year").value)&&
+  (!$("session").value||String(r.session)===$("session").value)&&
+  (!$("grade").value||String(r.grade)===$("grade").value)&&
+  (!($("search").value.trim())||[r.component,r.specification].some(v=>String(v||"").toLowerCase().includes($("search").value.trim().toLowerCase())))
+ );
+}
+function renderComponentChoices(){
+ const el=$("componentChoices"), rows=baseFiltered(), comps=uniq(rows.map(r=>r.component));
+ selectedComponents=new Set([...selectedComponents].filter(c=>comps.includes(c)));
+ el.innerHTML="";
+ if(!comps.length){el.innerHTML='<span class="muted">No components match the current filters.</span>';return}
+ comps.forEach(c=>{
+  const label=document.createElement("label");label.className="chip";
+  const cb=document.createElement("input");cb.type="checkbox";cb.value=c;cb.checked=selectedComponents.has(c);
+  cb.addEventListener("change",()=>{cb.checked?selectedComponents.add(c):selectedComponents.delete(c);render()});
+  label.append(cb,document.createTextNode(c));el.appendChild(label);
+ });
+ if(document.querySelector('input[name="componentMode"]:checked').value==="all")el.style.opacity=".55";else el.style.opacity="1";
+}
+function filtered(){
+ let rows=baseFiltered();
+ if(document.querySelector('input[name="componentMode"]:checked').value==="selected"){
+  rows=rows.filter(r=>selectedComponents.has(String(r.component)));
+ }
+ const key=$("sortBy").value;
+ rows.sort((a,b)=>{
+  const av=key==="percent"?(Number(a.threshold)/Number(a.max_mark||1)):(Number(a.threshold)||0);
+  const bv=key==="percent"?(Number(b.threshold)/Number(b.max_mark||1)):(Number(b.threshold)||0);
+  const d=av-bv;return $("order").value==="desc"?-d:d;
+ });
+ return rows;
+}
+function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function render(){
+ const rows=filtered(), body=$("results");body.innerHTML="";
+ rows.forEach((r,i)=>{
+  const pct=Number(r.max_mark)>0?(100*Number(r.threshold)/Number(r.max_mark)):null;
+  const tr=document.createElement("tr");
+  tr.innerHTML=`<td>${i+1}</td><td>${esc(r.qualification)}</td><td>${esc(r.subject)}</td><td>${esc(r.specification)}</td><td><strong>${esc(r.component)}</strong></td><td>${esc(r.year)}</td><td>${esc(r.session)}</td><td>${esc(r.grade)}</td><td class="mark">${esc(r.threshold)}</td><td>${esc(r.max_mark)}</td><td>${pct===null?"—":pct.toFixed(1)+"%"}</td><td>${esc(r.source||"")}</td>`;
+  body.appendChild(tr);
+ });
+ $("empty").hidden=rows.length!==0;
+ $("count").textContent=rows.length;
+ $("componentCount").textContent=uniq(rows.map(r=>r.component)).length;
+ $("yearCount").textContent=uniq(rows.map(r=>r.year)).length;
+ $("summary").textContent=`${$("year").value||"All years"} · ${$("session").value||"All sessions"} · ${document.querySelector('input[name="componentMode"]:checked').value==="all"?"All components":selectedComponents.size+" selected component(s)"}`;
+}
+function csvEscape(v){let s=String(v??"");return /[",\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s}
+const columns=["qualification","subject","specification","component","year","session","grade","threshold","max_mark","source"];
+function makeCSV(rows){return [columns.join(","),...rows.map(r=>columns.map(k=>csvEscape(r[k])).join(","))].join("\r\n")}
+function download(name,content){const blob=new Blob([content],{type:"text/csv;charset=utf-8;"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download=name;a.click();URL.revokeObjectURL(url)}
+function parseCSV(text){
+ const lines=[];let row=[],cell="",quoted=false;
+ for(let i=0;i<text.length;i++){const c=text[i],n=text[i+1];if(quoted){if(c==='"'&&n==='"'){cell+='"';i++}else if(c==='"')quoted=false;else cell+=c}else{if(c==='"')quoted=true;else if(c===","){row.push(cell);cell=""}else if(c==="\n"){row.push(cell.replace(/\r$/,""));lines.push(row);row=[];cell=""}else cell+=c}}
+ if(cell.length||row.length){row.push(cell.replace(/\r$/,""));lines.push(row)}
+ if(!lines.length)return [];
+ const heads=lines.shift().map(h=>h.trim().toLowerCase());
+ return lines.filter(r=>r.some(v=>v.trim())).map(r=>{const o={};heads.forEach((h,i)=>o[h]=(r[i]||"").trim());["year","threshold","max_mark"].forEach(k=>{if(o[k]!==undefined&&o[k]!=="")o[k]=Number(o[k])});return o}).filter(r=>r.subject&&r.component&&r.grade&&r.threshold!==undefined);
+}
+fields.forEach(id=>$(id).addEventListener("change",()=>{renderComponentChoices();render()}));
+["sortBy","order","search"].forEach(id=>$(id).addEventListener(id==="search"?"input":"change",()=>{renderComponentChoices();render()}));
+document.querySelectorAll('input[name="componentMode"]').forEach(el=>el.addEventListener("change",()=>{renderComponentChoices();render()}));
+$("reset").addEventListener("click",()=>{fields.forEach(id=>$(id).value="");$("sortBy").value="marks";$("order").value="desc";$("search").value="";selectedComponents.clear();document.querySelector('input[name="componentMode"][value="all"]').checked=true;refreshFilters()});
+$("downloadCsv").addEventListener("click",()=>download("edexcel-threshold-template.csv",makeCSV([{qualification:"International GCSE",subject:"Mathematics",specification:"4MA1",component:"1H",year:2025,session:"May/June",grade:"9",threshold:0,max_mark:200,source:"Official source URL or document reference"}])));
+$("exportResults").addEventListener("click",()=>download("edexcel-filtered-thresholds.csv",makeCSV(filtered())));
+$("csvUpload").addEventListener("change",async e=>{const file=e.target.files[0];if(!file)return;try{const parsed=parseCSV(await file.text());if(!parsed.length){alert("No valid rows found. Please use the CSV template and keep its column headings.");return}data=parsed;selectedComponents.clear();refreshFilters();alert(`Imported ${parsed.length} rows. Check the results and filters.`)}catch(err){alert("Could not read that CSV. Please check its format.")}e.target.value=""});
+refreshFilters();
+</script>
+</body>
+</html>
